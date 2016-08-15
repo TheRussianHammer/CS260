@@ -1,0 +1,151 @@
+%
+% compile with pdflatex:
+%   $ pdflatex homework-hw
+% , yields homework-example.pdf
+%    You might need to compile twice, if, e.g., you start using references
+%
+
+\documentclass[10pt,letterpaper,oneside]{article}
+\usepackage[ascii]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1in]{geometry}
+	\setlength{\parindent}{0em}
+	\setlength{\parskip}{1em}
+
+\newtheorem{theorem}{Theorem}
+
+%%%% user definitions %%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Problem}[1]{\subsection*{Problem #1}}
+\newcommand{\Part}[1]{\subsubsection*{Part #1}}
+\newcommand{\Solution}{\subsubsection*{Solution}}
+
+	% Forms for Big-Oh notation
+\DeclareMathOperator{\Omicron}{O}
+\DeclareMathOperator{\omicron}{o}
+
+\newcommand{\BigOh}[1]{\Omicron(#1)}
+\newcommand{\LittleOh}[1]{\omicron(#1)}
+\newcommand{\BigOmega}[1]{\Omega(#1)}
+\newcommand{\LittleOmega}[1]{\omega(#1)}
+\newcommand{\BigTheta}[1]{\Theta(#1)}
+
+	% Operators for dominance notation
+\newcommand{\domeq}{\sim}
+\newcommand{\domle}{\preceq}
+\newcommand{\domlt}{\prec}
+\newcommand{\domge}{\succeq}
+\newcommand{\domgt}{\succ}
+
+
+%%%%%%%%  You edit stuff below this line  %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{HW2 Theory}
+\author{Alexander Kazantsev}
+%\date{}  % uses today, by default
+
+\begin{document}
+
+\maketitle
+
+\Problem{1.13}
+
+	\Part{a}
+	Prove: 17 $\in \BigOh{1}$
+	\Solution
+		$c>=1$
+		\begin{eqnarray*}
+			\text{$17 <= c(1)$}\\
+			\text{$c=18$}\\
+			\text{$17 <= 18$}\\
+			\text{ 17 $\in \BigOh{1}$}
+		\end{eqnarray*}
+	\Part{b}
+		Prove: $n(n-1)/2 \in \BigOh{n^2}$
+		\Solution
+		$c >= n_0$
+
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{ $n(n-1)/2 =\frac{ n^2-n}{2}$}\\
+			\text{ $\frac{ n^2-n}{2}<= cn^2$}\\
+			\text{$c=10$}\\
+			\text{ $\frac{ n^2-n}{2}<= 10n^2$}\\
+			\text{ $ n^2-n<= 20n^2$}\\
+			\text{ $ n-1<= 20n$}, \forall n >= 1\\
+			\text{ $n(n-1)/2 \in \BigOh{n^2}$}
+		\end{eqnarray*}
+	\Part{c}
+		Prove: max$(n^3,10n^2) \in \BigOh{n^3}$
+		\Solution
+		First there must be proof that $10n^2 \in \BigOh{n^3}$ to prove that the  max$(n^3,10n^2)$ is $n^3$
+
+		$c >= n_0$
+
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{ $10n^2 <= cn^3$}\\
+			\text{ $c=1$}\\
+			\text{ $10n^2 <= n^3$}\\
+			\text{ $10 <= n$}, \forall n >= 10\\
+			\text{  max$(n^3,10n^2)$ is $n^3$}\\
+			\text{ $ n^3 \in \BigOh{n^3}$}, \forall n \\
+		\end{eqnarray*}
+	\Part{d}
+		Prove: $\sum_{i=1}^n i^k \in \BigOh{n^ {k+1}}$ and $ \in \BigOmega{n^{k+1}}$
+		\Solution
+		BigOh
+		\begin{eqnarray*}
+			\text{ $\sum_{i=1}^n i^k <= cn^{k+1}$}\\
+			\text{ $1+\frac{\sum_{i=1}^{n-1} i^k}{n^k} <= cn $}\\
+			\text{ $\implies0< \frac{i^k}{n^k} < 1, \forall i \in [1,n-1]$}\\
+			\text{ $1+\sum_{i=1}^{n-1} j <= cn$}, 0<j<1, c >= 1\\
+			\text{ $\implies \sum_{i=1}^n i^k \in \BigOh{n^ {k+1}}$}\\
+		\end{eqnarray*}
+		BigOmega
+		\begin{eqnarray*}
+			\text{ $c\sum_{i=1}^n i^k >= n^{k+1}$}\\
+			\text{ $c+\frac{c\sum_{i=1}^{n-1} i^k}{n^k} >= n $}\\
+			\text{ $1+\frac{\sum_{i=1}^{n-1} i^k}{n^k} >=\frac{ n}{c} $}\\
+			\text{ $\frac{n}{c}<=n$}\\
+			\text{ $\implies \sum_{i=1}^n i^k \in \BigOmega{n^{k+1}}$}\\
+		\end{eqnarray*}
+\Problem{1.16}
+	In order or smallest growth rate to largest
+	
+	1. $(\frac{1}{3})^n$ (h)
+	
+	2. 17 (j)
+	
+	3. $log(log(n))$ (d)
+
+	4.$log(n)$ (c)
+
+	5.$log^2(n)$ (e)
+
+	6. $\sqrt{n}$ (b)
+
+	7. $\sqrt{n}log^2(n)$ (g) 
+
+	8. $\frac{n}{log(n)}$ (f)
+
+	9. $n$ (a)
+
+	10. $(3/2)^n$ (i)
+\Problem{1.18}
+	\Part{a}
+	
+	\Part{b}
+		$T(n) = 2^{log(n)}$
+
+\Problem{2.9}
+	When the if statement inside the while loop is $True$ the list will be lost. This is because the pointer at the current position is not preserved. After it is deleted it will have nothing to point to next. 
+
+\Problem{2.11}
+First: $n^2+1$
+
+End: $n^2 + n$
+
+Next: $n^3+n^2+n$
+		
+\end{document}

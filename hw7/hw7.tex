@@ -1,0 +1,90 @@
+%
+% compile with pdflatex:
+%   $ pdflatex homework-hw
+% , yields homework-example.pdf
+%    You might need to compile twice, if, e.g., you start using references
+%
+
+\documentclass[10pt,letterpaper,oneside]{article}
+\usepackage[ascii]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {} }
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1in]{geometry}
+	\setlength{\parindent}{0em}
+	\setlength{\parskip}{1em}
+
+
+
+\newtheorem{theorem}{Theorem}
+
+%%%% user definitions %%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Problem}[1]{\subsection*{Problem #1}}
+\newcommand{\Part}[1]{\subsubsection*{Part #1}}
+\newcommand{\Solution}{\subsubsection*{Solution}}
+
+	% Forms for Big-Oh notation
+\DeclareMathOperator{\Omicron}{O}
+\DeclareMathOperator{\omicron}{o}
+
+\newcommand{\BigOh}[1]{\Omicron(#1)}
+\newcommand{\LittleOh}[1]{\omicron(#1)}
+\newcommand{\BigOmega}[1]{\Omega(#1)}
+\newcommand{\LittleOmega}[1]{\omega(#1)}
+\newcommand{\BigTheta}[1]{\Theta(#1)}
+
+	% Operators for dominance notation
+\newcommand{\domeq}{\sim}
+\newcommand{\domle}{\preceq}
+\newcommand{\domlt}{\prec}
+\newcommand{\domge}{\succeq}
+\newcommand{\domgt}{\succ}
+
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+
+%%%%%%%%  You edit stuff below this line  %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{HW7 Theory}
+\author{Alexander Kazantsev}
+%\date{}  % uses today, by default
+
+\begin{document}
+
+\Problem{5.20}
+for i in 1:n
+
+\tab for z in i+1:n
+
+\tab\tab if state[i].acceptance == state[z].acceptance
+
+\tab\tab\tab Merge(state, i, z)
+
+\tab\tab elif  state[i].input(0) == state[z].input(0)
+
+\tab\tab\tab  Merge(state, i, z)
+
+\tab\tab elif  state[i].input(1) == state[z].input(1)
+
+\tab\tab\tab  Merge(state, i, z)
+\Problem{2}
+
+By definition of a undirected grpah, each edge $E$ is incident to exactly two vertices $\implies d_i = 2$
+
+\begin{eqnarray*}
+			\text{ $\sum_{i=1}^n d_i = 2m$}
+\end{eqnarray*}
+\Problem{3}
+$\forall v_i$, $ i \in [1..n]$
+
+let $x_i$ be out-degree of $v_i$ and $y_i$ be the in-degree of $v_i$
+\begin{eqnarray*}
+			\text{ $\sum_{i=1}^n x_i^2 - y_i^2  = \sum_{i=1}^n (x_i + y_i)(x_i - y_i)$}\\
+			\text{ $x_i + y_i = n-1$}\\
+			\text{ $\sum_{i=1}^n x_i^2 - y_i^2  = (n-1)\sum_{i=1}^n (x_i - y_i)$}\\
+			\text{ $ \sum_{i=1}^n (x_i - y_i) = 0$}\\
+\end{eqnarray*}
+
+\maketitle
+\end{document}

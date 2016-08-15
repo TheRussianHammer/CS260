@@ -1,0 +1,303 @@
+%
+% compile with pdflatex:
+%   $ pdflatex homework-hw
+% , yields homework-example.pdf
+%    You might need to compile twice, if, e.g., you start using references
+%
+
+\documentclass[10pt,letterpaper,oneside]{article}
+\usepackage[ascii]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1in]{geometry}
+	\setlength{\parindent}{0em}
+	\setlength{\parskip}{1em}
+
+\newtheorem{theorem}{Theorem}
+
+%%%% user definitions %%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Problem}[1]{\subsection*{Problem #1}}
+\newcommand{\Part}[1]{\subsubsection*{Part #1}}
+\newcommand{\Solution}{\subsubsection*{Solution}}
+
+	% Forms for Big-Oh notation
+\DeclareMathOperator{\Omicron}{O}
+\DeclareMathOperator{\omicron}{o}
+
+\newcommand{\BigOh}[1]{\Omicron(#1)}
+\newcommand{\LittleOh}[1]{\omicron(#1)}
+\newcommand{\BigOmega}[1]{\Omega(#1)}
+\newcommand{\LittleOmega}[1]{\omega(#1)}
+\newcommand{\BigTheta}[1]{\Theta(#1)}
+
+	% Operators for dominance notation
+\newcommand{\domeq}{\sim}
+\newcommand{\domle}{\preceq}
+\newcommand{\domlt}{\prec}
+\newcommand{\domge}{\succeq}
+\newcommand{\domgt}{\succ}
+
+
+%%%%%%%%  You edit stuff below this line  %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{HW1 Theory}
+\author{Alexander Kazantsev}
+%\date{}  % uses today, by default
+
+\begin{document}
+
+\maketitle
+
+\Problem{1}
+	
+	Let:
+	\begin{eqnarray*}
+		\text{$f_1 = n^2$}\\
+		\text{$f_2 = n^2 + 1000n$}\\
+	\end{eqnarray*}
+		\[
+			f_3= \left\lbrace%
+			\begin{array}{cc}
+				n &, \text{$n$ is odd}\\
+				n^3 &, \text{$n$ is even}\\
+			\end{array} \right.
+		\]
+		\[
+			f_4= \left\lbrace%
+			\begin{array}{cc}
+				n &, n<=100\\
+				n^3 &, n>100\\
+			\end{array} \right.
+		\]
+
+	\Part{a}
+	Statement: $f_1$ and $f_2$ are codominant 
+	\Solution
+		$f_1 \in \BigOh{f_2}$ = $n^2 \in \BigOh{n^2}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^2 <= cn^2$}\\
+			\text{$c=2$}\\
+			\text{$n^2 <= 2n^2$}, \forall n>0\\
+			\text{$f_2$ does dominate $f_1$}
+		\end{eqnarray*}
+		$f_2 \in \BigOh{f_1}$ = $n^2 + 1000n \in \BigOh{n^2}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^2 + 1000n <= cn^2$}\\
+			\text{$c=10$}\\
+			\text{$n^2 + 1000n <= 10n^2$}\\
+			\frac{n}{10}\text{$ + 100 <= n$}, \forall n >= 110\\
+			\text{$f_1$ does dominate $f_2$ }
+		\end{eqnarray*}
+	\Part{b}
+	Statement: $f_3$ dominates $f_1$, as the upper bound of $f_3$ is $n^3$
+	\Solution
+		$f_1 \in \BigOh{f_3}$ = $n^2 \in \BigOh{n^3}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^2 <= cn^3$}\\
+			\text{$c=1$}\\
+			\text{$n^2 <= n^3$}, \forall n>0\\
+			\text{$f_3$ does dominate $f_1$ }
+		\end{eqnarray*}
+		$f_3 \in \BigOh{f_1}$ = $n^3 \in \BigOh{n^2}$,
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^3 <= cn^2$}\\
+			\text{$c=5$}\\
+			\text{$n^3 <= 5n^2$}\\
+			\text{$n <= 5$}, \forall n<=5\\
+			\text{$f_3$ does not dominate $f_1$ }
+		\end{eqnarray*}
+
+	\Part{c}
+	Statement: $f_4$ dominates $f_1$, as the upper bound of $f_4$ is $n^3$ 
+	\Solution
+		$f_1 \in \BigOh{f_4}$ = $n^2 \in \BigOh{n^3}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^2 <= cn^3$}\\
+			\text{$c=1$}\\
+			\text{$n^2 <= n^3$}\\
+			\text{$1 <= n$}, \forall n >= 1\\
+			\text{$f_4$ does dominate $f_1$}
+		\end{eqnarray*}
+		$f_4 \in \BigOh{f_1}$ = $n^3 \in \BigOh{n^2}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^3 <= cn^2$}\\
+			\text{$c=10$}\\
+			\text{$n^3 <= 10n^2$}\\
+			\text{$n <= 10$}, \forall n <= 10\\
+			\text{$f_1$ does not dominate $f_3$ }
+		\end{eqnarray*}
+	\Part{d}
+	Statement: $f_3$ dominates $f_2$, as the upper bound of $f_3$ is $n^3$
+	\Solution
+		$f_2 \in \BigOh{f_3}$ = $n^2 + 1000n \in \BigOh{n^3}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^2 + 1000n<= cn^3$}\\
+			\text{$c=10$}\\
+			\text{$n^2 + 1000n <= 10n^3$}\\
+			\frac{1}{10}\text{$ + \frac{100}{n} <= n$}, \forall n >= 11\\
+			\text{$f_3$ does dominate $f_2$}
+		\end{eqnarray*}
+		$f_3 \in \BigOh{f_2}$ = $n^3\in \BigOh{n^2}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^3<= cn^2$}\\
+			\text{$c=10$}\\
+			\text{$n^3 <= 10n^2$}\\
+			\frac{n}{10}\text{$ <= 1$}, \forall n <= 10\\
+			\text{$f_2$ does not dominate $f_3$}
+		\end{eqnarray*}
+	\Part{e}
+	Statement: $f_4$ dominates $f_2$, as the upper bound of $f_4$ is $n^3$
+	\Solution
+		$f_2 \in \BigOh{f_4}$ = $n^2 + 1000n \in \BigOh{n^3}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^2 + 1000n<= cn^3$}\\
+			\text{$c=10$}\\
+			\text{$n^2 + 1000n <= 10n^3$}\\
+			\frac{1}{10}\text{$ + \frac{100}{n} <= n$}, \forall n >= 11\\
+			\text{$f_4$ does dominate $f_2$}
+		\end{eqnarray*}
+		$f_4 \in \BigOh{f_2}$ = $n^3\in \BigOh{n^2}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^3<= cn^2$}\\
+			\text{$c=10$}\\
+			\text{$n^3 <= 10n^2$}\\
+			\frac{n}{10}\text{$ <= 1$}, \forall n <= 10\\
+			\text{$f_2$ does not dominate $f_4$}
+		\end{eqnarray*}
+	\Part{f}
+	Statement: $f_3$ and $f_4$ are codominant
+	\Solution
+		$f_3 \in \BigOh{f_4}$ = $n^3 \in \BigOh{n^3}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^3 <= cn^3$}\\
+			\text{$c=2$}\\
+			\text{$n^3 <= 2n^3$}, \forall n>0\\
+			\text{$f_4$ does dominate $f_3$}
+		\end{eqnarray*}
+		$f_4 \in \BigOh{f_3}$ = $n^3 \in \BigOh{n^3}$,	
+		$c >= n_0$,
+		$ n_0 > 0$
+		\begin{eqnarray*}
+			\text{$n^3 <= cn^3$}\\
+			\text{$c=2$}\\
+			\text{$n^3 <= 2n^3$}, \forall n>0\\
+			\text{$f_3$ does dominate $f_4$}
+		\end{eqnarray*}
+\Problem{2}
+	\Part{a}
+		Worst case
+		$\BigOh{matmpy} = n^3$
+		\Solution
+			The first loop iterates over $n$ elements with object $i$. 
+
+			The next nested loop iterates from $i$ to $n$ "$n$ times".
+
+			 This can be expressed with:
+			\begin{eqnarray}
+				\sum_{i=1}^n i  & = & \frac{n(n+1)}{2} \\
+			\end{eqnarray} 
+			Which yields a $\BigOh{n^2}$. 
+
+			The final nested loop iterates over $n$ elements.
+
+			 Using the multiplicative rules of "Big Oh", $\BigOh{matmpy} = n^2 * n = n^3$
+
+			 For function $t$ to dominate, and be reasonably tight $t=n^3$
+
+			$matmpy \in \BigOh{t}$ = $n^3 \in \BigOh{n^3}$,	
+			
+			Proof:
+				\begin{eqnarray*}
+					\text{$n^3 <= cn^3$}\\
+					\text{$c=2$}\\
+					\text{$n^3 <= 2n^3$}, \forall n>0\\
+					\text{$t$ does dominate $matmpy$}
+				\end{eqnarray*}
+	\Part{b}
+		$\BigOh{mystery} = n$	
+		\Solution
+			Under the assumption that indents indicate nesting 
+
+			The first loop doesn't do anything besides iterate over $n-1$ elements
+
+			The next loop attempts to iterate from $i+1$ to $n$
+
+			Since $i+1 = n$ after the first loop, the second loop never allows its nested loop to run
+		
+			$\BigOh{mystery} = n$
+
+			For function $t$ to dominate, and be reasonably tight $t=n$
+			
+			$mystery \in \BigOh{t}$ = $n \in \BigOh{n}$
+
+			Proof:
+				\begin{eqnarray*}
+					\text{$n <= cn$}\\
+					\text{$c=2$}\\
+					\text{$n<= 2n$}, \forall n>0\\
+					\text{$t$ does dominate $mystery$}
+				\end{eqnarray*}
+	\Part{c}
+		$\BigOh{veryodd} = n^2$	
+		\Solution
+			The first loop iterates over $n$ elements
+
+			Using the additive rule of "Big Oh" the two nested loops merge to $n^2$
+
+			Proof:
+				\begin{eqnarray}
+					\sum_{j=1}^n i  & = & \frac{n(n+1)}{2}  \\\
+				\end{eqnarray} 
+			The upper bound is defined when $i$ is odd, and yields $n^2 + n$ which simplifies to $\BigOh{n^2}$
+			
+			For function $t$ to dominate, and be reasonably tight $t=n^2$
+
+			Proof:
+				\begin{eqnarray*}
+					\text{$n^2 <= cn^2$}\\
+					\text{$c=2$}\\
+					\text{$n^2 <= 2n^2$}, \forall n>0\\
+					\text{$t$ does dominate $matmpy$}
+				\end{eqnarray*}
+	\Part{d}
+	$\BigOh{recursive} = 2^n$
+	\Solution
+	For each recursive call, two more calls are generated. Total steps is the sum of $2^n$:
+			\begin{eqnarray}
+				\sum_{i=1}^n 2^i  & = & (2^{n+1}-1) \\
+			\end{eqnarray} 
+	Which yeilds $\BigOh{2^n}$
+
+	For function $t$ to dominate, and be reasonably tight $t=2^n$
+
+			Proof:
+				\begin{eqnarray*}
+					\text{$2^n <= c2^n$}\\
+					\text{$c=2$}\\
+					\text{$2^n <= 2(2^n)$}, \forall n>=0\\
+					\text{$t$ does dominate $matmpy$}
+				\end{eqnarray*}
+	
+\end{document}
